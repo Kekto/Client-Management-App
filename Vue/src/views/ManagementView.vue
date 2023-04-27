@@ -1,16 +1,17 @@
 <template>
+  <h1>Management View</h1>
   <el-container>
     <el-aside width="120px"/>
     <div class="demo-collapse">
       <el-collapse v-model="activeName" accordion>
-        <el-collapse-item title="Add User" name="1">
-          <AddUserComp/>
+        <el-collapse-item title="Add Client" name="1">
+          <AddClientComp/>
         </el-collapse-item>
-        <el-collapse-item title="Update User" name="2">
-          <UpdateUserComp/>
+        <el-collapse-item title="Update Client" name="2">
+          <UpdateClientComp/>
         </el-collapse-item>
-        <el-collapse-item title="Delete User" name="3">
-          <DeleteUserComp/>
+        <el-collapse-item title="Delete Client" name="3">
+          <DeleteClientComp/>
         </el-collapse-item>
       </el-collapse>
     </div>
@@ -19,13 +20,13 @@
 </template>
 
 <script>
-import AddUserComp from '@/components/AddUserComp.vue'
-import UpdateUserComp from '@/components/UpdateUserComp.vue'
-import DeleteUserComp from '@/components/DeleteUserComp.vue'
+import AddClientComp from '@/components/AddClientComp.vue'
+import UpdateClientComp from '@/components/UpdateClientComp.vue'
+import DeleteClientComp from '@/components/DeleteClientComp.vue'
 export default {
   name: 'ManagementView',
   components:{
-    AddUserComp, UpdateUserComp, DeleteUserComp
+    AddClientComp, UpdateClientComp, DeleteClientComp
   },
   data() {
     return {

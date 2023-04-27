@@ -1,13 +1,13 @@
 <template>
     <div>
-        Add User
+        Delete Client
     </div>
 </template>
 
 <script>
 
 export default {
-name: 'AddUserComp',
+name: 'DeleteClientComp',
 data() {
     return {
     }

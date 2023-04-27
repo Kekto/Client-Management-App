@@ -1,6 +1,6 @@
 <template>
     <el-menu
-        :default-active="activeIndex"
+        :default-active="this.activeIndex"
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect">
@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+            console.log(key, keyPath);
         }
     },
 };

@@ -1,13 +1,13 @@
 <template>
     <div>
-        Update User
+        Update Client
     </div>
 </template>
 
 <script>
 
 export default {
-name: 'UpdateUserComp',
+name: 'UpdateClientComp',
 data() {
     return {
     }
