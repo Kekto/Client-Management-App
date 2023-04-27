@@ -1,10 +1,22 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <MenuComp/>
   <router-view/>
 </template>
+
+<script>
+import MenuComp from './components/MenuComp.vue';
+
+export default {
+  components: {
+    MenuComp
+  },
+  data() {
+    return {
+        activeIndex: 1
+    }
+  },
+}
+</script>
 
 <style>
 #app {
