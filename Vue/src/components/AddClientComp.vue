@@ -67,7 +67,7 @@ export default {
                 birthDate: '',
                 phoneNumber: '',
                 email: '',
-                employee: "",
+                employee: '',
             },
             employees:{
                 employee1:{
