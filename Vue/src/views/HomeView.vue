@@ -10,7 +10,7 @@
         </el-button>
       </div>
       <!-- CLIENT TABLE -->
-      <el-table :data="filteredClients" style="width: 100%" class="table">
+      <el-table :data="paginated" style="width: 100%" class="table">
         <el-table-column fixed prop="firstName" label="First Name" width="180px" sortable/>
         <el-table-column fixed prop="lastName" label="Last Name" width="180px" sortable/>
         <el-table-column prop="car" label="Car" width="fit-content" sortable/>
@@ -31,6 +31,17 @@
       </el-table>
     </el-main>
   </el-container>
+  <el-pagination
+      small
+      background
+      layout="prev, pager, next"
+      :total="filteredClients.length"
+      :page-size="pageSize"
+      v-model:current-page="current"
+      class="mt-4"
+
+      style="justify-content: center;"
+    />
   <!-- ADD CLIENT DIALOG -->
   <el-dialog
     v-model="addDialogToggle"
@@ -82,22 +93,29 @@ export default {
       return this.clientStore.getClients.filter(
         client => 
           !this.search || 
-          // client.firstName.toLowerCase().includes(this.search.toLowerCase()) || 
-          // client.lastName.toLowerCase().includes(this.search.toLowerCase()) || 
-          // client.employee.firstName.toLowerCase().includes(this.search.toLowerCase()) || 
-          // client.car.toLowerCase().includes(this.search.toLowerCase())
-          this.search.split(' ').every(w => 
+           this.search.split(' ').every(w => 
             client.firstName.toLowerCase().includes(w.toLowerCase()) ||
             client.lastName.toLowerCase().includes(w.toLowerCase()) ||
             client.car.toLowerCase().includes(w.toLowerCase()) ||
             client.employee.firstName.toLowerCase().includes(w.toLowerCase())
             )
         )
+    },
+    indexStart() {
+      return (this.current - 1) * this.pageSize;
+    },
+    indexEnd() {
+      return this.indexStart + this.pageSize;
+    },
+    paginated(){
+      return this.filteredClients.slice(this.indexStart, this.indexEnd);
     }
   },
   data() {
     return {
       search: '',
+      current: 1,
+      pageSize: 2,
       addDialogToggle: false,
       detailsDialogToggle: false,
       editDialogToggle: false,
