@@ -10,7 +10,7 @@
         </el-button>
       </div>
       <!-- CLIENT TABLE -->
-      <el-table :data="getClients" style="width: 100%" class="table">
+      <el-table :data="filteredClients" style="width: 100%" class="table">
         <el-table-column fixed prop="firstName" label="First Name" width="180px" sortable/>
         <el-table-column fixed prop="lastName" label="Last Name" width="180px" sortable/>
         <el-table-column prop="car" label="Car" width="fit-content" sortable/>
@@ -78,6 +78,16 @@ export default {
     getClients(){
       return this.clientStore.getClients
     },
+    filteredClients(){
+      return this.clientStore.getClients.filter(
+        client => 
+          !this.search || 
+          client.firstName.toLowerCase().includes(this.search.toLowerCase()) || 
+          client.lastName.toLowerCase().includes(this.search.toLowerCase()) || 
+          client.employee.firstName.toLowerCase().includes(this.search.toLowerCase()) || 
+          client.car.toLowerCase().includes(this.search.toLowerCase())
+        )
+    }
   },
   data() {
     return {
