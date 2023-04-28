@@ -12,7 +12,7 @@ export const useClientStore = defineStore("client", {
 					birthDate: "1984-10-12",
 					phoneNumber: "612612763",
 					email: "adam@harvey.com",
-					car: "",
+					car: "Long Car Name",
 					employee: {
 						id: 1,
 						firstName: "Robert",

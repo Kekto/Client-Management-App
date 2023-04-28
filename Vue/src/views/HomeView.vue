@@ -11,10 +11,10 @@
       </div>
       <!-- CLIENT TABLE -->
       <el-table :data="getClients" style="width: 100%" class="table">
-        <el-table-column fixed prop="firstName" label="First Name" width="200px" sortable/>
-        <el-table-column fixed prop="lastName" label="Last Name" width="200px" sortable/>
-        <el-table-column prop="car" label="car" width="auto" sortable/>
-        <el-table-column prop="employee.firstName" label="employee" width="200px" sortable/>
+        <el-table-column fixed prop="firstName" label="First Name" width="180px" sortable/>
+        <el-table-column fixed prop="lastName" label="Last Name" width="180px" sortable/>
+        <el-table-column prop="car" label="Car" width="fit-content" sortable/>
+        <el-table-column prop="employee.firstName" label="Employee" width="200px" sortable/>
         <el-table-column fixed="right" label="Operations" width="200px">
           <template #default="props">
             <el-button link type="primary" size="small" @click="clickDetails(props.row.id)">
@@ -40,6 +40,13 @@
     <AddClientComp/>
   </el-dialog>
   <!-- DETAILS CLIENT DIALOG -->
+  <el-dialog
+    v-model="detailsDialogToggle"
+    width="fit-content"
+    destroy-on-close
+  >
+    <DetailsClientComp/>
+  </el-dialog>
   <!-- EDIT CLIENT DIALOG -->
   <el-dialog
     v-model="editDialogToggle"
@@ -54,12 +61,13 @@
 
 <script>
 import { useClientStore } from '@/store/client';
-import UpdateClientComp from '@/components/UpdateClientComp.vue';
 import AddClientComp from '@/components/AddClientComp.vue';
+import DetailsClientComp from '@/components/DetailsClientComp.vue';
+import UpdateClientComp from '@/components/UpdateClientComp.vue';
 export default {
   name: 'HomeView',
   components:{
-    AddClientComp, UpdateClientComp
+    AddClientComp, DetailsClientComp, UpdateClientComp
   },
   setup(){
     const clientStore = useClientStore();
