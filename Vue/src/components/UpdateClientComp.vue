@@ -1,7 +1,7 @@
 <template>
     <el-container>
         <!-- TEMPLATE FORM -->
-        <el-main class="main" style="max-width: 600px;">
+        <el-main style="max-width: 600px;">
             <el-form :model="formTemplate" label-position="left" label-width="120px" style="max-width: auto" :rules="rules" disabled>
                 <!-- NAMES -->
                 <el-form-item label="First Name" required>
@@ -62,7 +62,7 @@
             </el-button>
         </el-aside>
         <!-- ACTIVE FORM -->
-        <el-main class="main" style="max-width: 500px;">
+        <el-main style="max-width: 500px;">
             <el-form :model="form" ref="form" style="max-width: auto" :rules="rules">
                 <!-- NAMES -->
                 <el-form-item required prop="firstName">
@@ -119,7 +119,6 @@
             </el-form>
         </el-main>
     </el-container>
-
     <el-button type="primary" class="button" @click="submitForm('form')">Update Client</el-button>
 </template>
 
