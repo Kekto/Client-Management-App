@@ -82,10 +82,16 @@ export default {
       return this.clientStore.getClients.filter(
         client => 
           !this.search || 
-          client.firstName.toLowerCase().includes(this.search.toLowerCase()) || 
-          client.lastName.toLowerCase().includes(this.search.toLowerCase()) || 
-          client.employee.firstName.toLowerCase().includes(this.search.toLowerCase()) || 
-          client.car.toLowerCase().includes(this.search.toLowerCase())
+          // client.firstName.toLowerCase().includes(this.search.toLowerCase()) || 
+          // client.lastName.toLowerCase().includes(this.search.toLowerCase()) || 
+          // client.employee.firstName.toLowerCase().includes(this.search.toLowerCase()) || 
+          // client.car.toLowerCase().includes(this.search.toLowerCase())
+          this.search.split(' ').every(w => 
+            client.firstName.toLowerCase().includes(w.toLowerCase()) ||
+            client.lastName.toLowerCase().includes(w.toLowerCase()) ||
+            client.car.toLowerCase().includes(w.toLowerCase()) ||
+            client.employee.firstName.toLowerCase().includes(w.toLowerCase())
+            )
         )
     }
   },
