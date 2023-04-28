@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useClientStore = defineStore("client", {
 	state: () => {
 		return {
+			selectedClient: Object,
 			data: [
 				{
 					id: 1,
@@ -73,10 +74,41 @@ export const useClientStore = defineStore("client", {
 		getClientByID(id) {
 			return this.data.find((x) => x.id == id);
 		},
+		addClient(form) {
+			let id = 0;
+			for (let d of this.data) {
+				if (d.id > id) {
+					id = d.id;
+				}
+			}
+			id += 1;
+			form.id = id;
+			this.data.push(form);
+		},
+		updateClient(form) {
+			this.data[this.data.indexOf(this.selectedClient)].firstName =
+				form.firstName;
+			this.data[this.data.indexOf(this.selectedClient)].lastName =
+				form.lastName;
+			this.data[this.data.indexOf(this.selectedClient)].birthDate =
+				form.birthDate;
+			this.data[this.data.indexOf(this.selectedClient)].email = form.email;
+			this.data[this.data.indexOf(this.selectedClient)].phoneNumber =
+				form.phoneNumber;
+			this.data[this.data.indexOf(this.selectedClient)].employee =
+				form.employee;
+			console.log(this.data[this.data.indexOf(this.selectedClient)]);
+		},
+		deleteClient() {
+			delete this.data[this.data.indexOf(this.selectedClient)];
+		},
 	},
 	getters: {
 		getClients() {
 			return this.data;
+		},
+		getSelectedClient() {
+			return this.selectedClient;
 		},
 	},
 });

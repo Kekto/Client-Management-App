@@ -41,13 +41,13 @@
                 </el-form-item>
                 <!-- EMPLOYEE -->
                 <el-form-item label="Employee" required>
-                    <el-select v-model="formTemplate.employee" class="m-2" placeholder="Select" size="large">
-                        <!-- <el-option
-                        v-for="item in employees"
-                        :key="item.firstName + ' ' + item.lastName"
-                        :label="item.label"
-                        :value="item.firstName + ' ' + item.lastName"
-                        /> -->
+                    <el-select v-model="formTemplate.employee" class="m-2"  size="large">
+                        <el-option
+                        v-for="item in this.getEmployees"
+                        :key="item.id"
+                        :label="item.firstName + ' ' + item.lastName"
+                        :value="item.id"
+                        />
                     </el-select>
                 </el-form-item>
             </el-form>
@@ -86,6 +86,7 @@
                         type="date"
                         label="Pick a date"
                         placeholder="Pick a date"
+                        value-format="YYYY-MM-DD"
                         style="width: 100%"
                     />
                 </el-form-item>
@@ -109,10 +110,10 @@
                 <el-form-item required prop="employee">
                     <el-select v-model="form.employee" class="m-2" placeholder="Select" size="large" filterable clearable>
                         <el-option
-                        v-for="item in employees"
-                        :key="item.firstName + ' ' + item.lastName"
-                        :label="item.label"
-                        :value="item.firstName + ' ' + item.lastName"
+                        v-for="item in this.getEmployees"
+                        :key="item.id"
+                        :label="item.firstName + ' ' + item.lastName"
+                        :value="item.id"
                         />
                     </el-select>
                 </el-form-item>
@@ -123,14 +124,28 @@
 </template>
 
 <script>
-
+import { useClientStore } from '@/store/client';
+import { useEmployeeStore } from '@/store/employee'
 export default {
 name: 'UpdateClientComp',
+setup(){
+    const clientStore = useClientStore();
+    const employeeStore = useEmployeeStore();
+    return {clientStore, employeeStore}
+},
+mounted(){
+    this.fillForm();
+},
+computed:{
+        getEmployees(){
+            return this.employeeStore.getEmployees;
+        }
+    },
 data() {
         return {
             formTemplate:{
-                firstName: 'Template First Name',
-                lastName: 'Template Last Name',
+                firstName: '',
+                lastName: '',
                 birthDate: '',
                 phoneNumber: '',
                 email: '',
@@ -187,7 +202,9 @@ data() {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                  this.createMovie();
+                    let id = this.form.employee;
+                    this.form.employee = this.employeeStore.getEmployeeByID(id)
+                    this.clientStore.updateClient(this.form);
                 } else {
                     return false;
                 }
@@ -211,6 +228,14 @@ data() {
                 employee: '',
             }
         },
+        fillForm(){
+            this.formTemplate.firstName = this.clientStore.selectedClient.firstName;
+            this.formTemplate.lastName = this.clientStore.selectedClient.lastName;
+            this.formTemplate.birthDate = this.clientStore.selectedClient.birthDate;
+            this.formTemplate.phoneNumber = this.clientStore.selectedClient.phoneNumber;
+            this.formTemplate.email = this.clientStore.selectedClient.email;
+            this.formTemplate.employee = this.clientStore.selectedClient.employee.id;
+        }
     },  
 }
 </script>

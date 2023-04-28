@@ -22,6 +22,7 @@
             type="date"
             label="Pick a date"
             placeholder="Pick a date"
+            value-format="YYYY-MM-DD"
             style="width: 100%"
           />
     </el-form-item>
@@ -45,10 +46,10 @@
     <el-form-item label="Employee" required prop="employee">
         <el-select v-model="form.employee" class="m-2" placeholder="Select" size="large" filterable clearable>
             <el-option
-            v-for="item in employees"
-            :key="item.firstName + ' ' + item.lastName"
-            :label="item.label"
-            :value="item.firstName + ' ' + item.lastName"
+            v-for="item in this.getEmployees"
+            :key="item.id"
+            :label="item.firstName + ' ' + item.lastName"
+            :value="item.id"
             />
         </el-select>
     </el-form-item>
@@ -57,8 +58,20 @@
 </template>
 
 <script>
+import { useClientStore } from '@/store/client';
+import { useEmployeeStore } from '@/store/employee'
 export default {
     name: 'AddClientComp',
+    setup(){
+        const clientStore = useClientStore();
+        const employeeStore = useEmployeeStore();
+        return {clientStore, employeeStore}
+    },
+    computed:{
+        getEmployees(){
+            return this.employeeStore.getEmployees;
+        }
+    },
     data() {
         return {
             form: {
@@ -68,20 +81,7 @@ export default {
                 phoneNumber: '',
                 email: '',
                 employee: '',
-            },
-            employees:{
-                employee1:{
-                    firstName: 'First Name',
-                    lastName: 'Last Name1',
-                },
-                employee2:{
-                    firstName: 'First Name',
-                    lastName: 'Last Name2',
-                },
-                employee3:{
-                    firstName: 'First Name',
-                    lastName: 'Last Name3',
-                },
+                car: '',
             },
             rules:{
                 firstName: [
@@ -112,7 +112,9 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                  this.createMovie();
+                    let id = this.form.employee;
+                    this.form.employee = this.employeeStore.getEmployeeByID(id)
+                    this.clientStore.addClient(this.form);
                 } else {
                     return false;
                 }
@@ -126,9 +128,16 @@ export default {
 .button{
     background-color: #9fd3c7;
     border-color: #9fd3c7;
+    width: fit-content;
+    margin: 5px;
+    padding: 10px;
+    --el-button-hover-bg-color: #bde6dc;
+    --el-button-hover-color: #bde6dc;
+    --el-button-hover-text-color: white;
 }
 .button:hover{
     background-color: #bde6dc;
     border-color: #bde6dc;
+    color: white;
 }
 </style>

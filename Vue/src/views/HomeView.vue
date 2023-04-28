@@ -5,10 +5,11 @@
         <el-input v-model="this.search"/>
       </div>
       <div class="button-add">
-        <el-button type="primary">
+        <el-button class="button" type="primary" @click="addDialogToggle = !addDialogToggle">
           Add
         </el-button>
       </div>
+      <!-- CLIENT TABLE -->
       <el-table :data="getClients" style="width: 100%" class="table">
         <el-table-column fixed prop="firstName" label="First Name" width="200px" sortable/>
         <el-table-column fixed prop="lastName" label="Last Name" width="200px" sortable/>
@@ -19,10 +20,10 @@
             <el-button link type="primary" size="small" @click="clickDetails(props.row.id)">
               Detail
               </el-button>
-            <el-button link type="primary" size="small">
+            <el-button link type="primary" size="small" @click="clickEdit(props.row.id)">
               Edit
             </el-button>
-            <el-button link type="primary" size="small">
+            <el-button link type="primary" size="small" @click="clickDelete(props.row.id)">
               Delete
             </el-button>
           </template>
@@ -30,12 +31,36 @@
       </el-table>
     </el-main>
   </el-container>
+  <!-- ADD CLIENT DIALOG -->
+  <el-dialog
+    v-model="addDialogToggle"
+    width="fit-content"
+    destroy-on-close
+  >
+    <AddClientComp/>
+  </el-dialog>
+  <!-- DETAILS CLIENT DIALOG -->
+  <!-- EDIT CLIENT DIALOG -->
+  <el-dialog
+    v-model="editDialogToggle"
+    width="fit-content"
+    destroy-on-close
+  >
+    <UpdateClientComp/>
+  </el-dialog>
+
+  <!-- DELETE CLIENT DIALOG -->
 </template>
 
 <script>
 import { useClientStore } from '@/store/client';
+import UpdateClientComp from '@/components/UpdateClientComp.vue';
+import AddClientComp from '@/components/AddClientComp.vue';
 export default {
   name: 'HomeView',
+  components:{
+    AddClientComp, UpdateClientComp
+  },
   setup(){
     const clientStore = useClientStore();
 
@@ -48,13 +73,27 @@ export default {
   },
   data() {
     return {
-      search: ''
+      search: '',
+      addDialogToggle: false,
+      detailsDialogToggle: false,
+      editDialogToggle: false,
+      deleteDialogToggle: false,
     }
   },
   methods:{
     clickDetails(id){
-      console.log(this.clientStore.getClientByID(id));
-    }
+      this.detailsDialogToggle = !this.detailsDialogToggle;
+      this.clientStore.selectedClient = this.clientStore.getClientByID(id);
+    },
+    clickEdit(id){
+      this.editDialogToggle = !this.editDialogToggle;
+      this.clientStore.selectedClient = this.clientStore.getClientByID(id);
+    },
+    clickDelete(id){
+      this.deleteDialogToggle = !this.deleteDialogToggle;
+      this.clientStore.selectedClient = this.clientStore.getClientByID(id);
+      this.clientStore.deleteClient();
+    },
   }
 }
 </script>
@@ -69,5 +108,19 @@ export default {
   margin: 4px;
   margin-top: 20px;
   margin-right: 28px;
+}
+.button{
+    background-color: #9fd3c7;
+    border-color: #9fd3c7;
+    width: fit-content;
+    padding: 10px;
+    --el-button-hover-bg-color: #bde6dc;
+    --el-button-hover-color: #bde6dc;
+    --el-button-hover-text-color: white;
+}
+.button:hover{
+    background-color: #bde6dc;
+    border-color: #bde6dc;
+    color: white;
 }
 </style>
