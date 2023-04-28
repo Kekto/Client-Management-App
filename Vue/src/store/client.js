@@ -100,7 +100,8 @@ export const useClientStore = defineStore("client", {
 			console.log(this.data[this.data.indexOf(this.selectedClient)]);
 		},
 		deleteClient() {
-			delete this.data[this.data.indexOf(this.selectedClient)];
+			let temp = this.data.splice(this.data.indexOf(this.selectedClient));
+			this.data = this.data.concat(temp.slice(1));
 		},
 	},
 	getters: {

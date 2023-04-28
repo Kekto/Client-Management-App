@@ -1,27 +1,55 @@
 <template>
-    <el-menu
-        :default-active="this.activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect">
-        <el-menu-item 
-            v-for="(element, index) in linkBase" 
-            :key="index" 
-            :index="`${index+1}`">
-            <router-link class="router-link" :to="{name: element.link}">{{ element.label }}</router-link>
-        </el-menu-item>
-    </el-menu>
+    <div v-if="!this.userStore.loggedIn">
+        <el-menu
+            :default-active="this.activeIndex"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="handleSelect">
+            <el-menu-item 
+                v-for="(element, index) in linkBase" 
+                :key="index" 
+                :index="`${index+1}`">
+                <router-link class="router-link" :to="{name: element.link}">{{ element.label }}</router-link>
+            </el-menu-item>
+        </el-menu>
+    </div>
+    <div v-else>
+        <el-menu
+            :default-active="this.activeIndex"
+            class="el-menu-demo"
+            mode="horizontal"
+            @select="handleSelect">
+            <el-menu-item 
+                v-for="(element, index) in linkLogged" 
+                :key="index" 
+                :index="`${index+1}`">
+                <router-link class="router-link" :to="{name: element.link}">{{ element.label }}</router-link>
+            </el-menu-item>
+            <el-menu-item @click="userStore.logout">
+                <router-link class="router-link" :to="{name: 'home'}"> Log out </router-link>
+            </el-menu-item>
+        </el-menu>
+    </div>
+
 </template>
   
-<script>  
+<script>
+import { useUserStore } from '@/store/user';
 export default {
     name: "NavigationComponent",
+    setup(){
+        const userStore = useUserStore();
+        return {userStore}
+    },
     data() {
         return {
         activeIndex: "1",
         linkBase: [
             {label: 'Home', link: 'home'},
-            {label: 'Management', link: 'management'},
+            {label: 'Login', link: 'login'},
+        ],
+        linkLogged: [
+            {label: 'Home', link: 'home'},
         ]
         };
     },
