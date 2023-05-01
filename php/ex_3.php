@@ -9,17 +9,29 @@
 <body>
     <?php 
         class RankingTable{
-            var $arr;
-            public function __construct($array){
-                $this->arr = $array;
+            var $array;
+            public function __construct($players){
+                $index = 1;
+                foreach($players as $player){
+                    $this->array[$index] = array(
+                        'name' => $player,
+                        'score' => '0',
+                    );
+                    $index += 1;
+                }
             }
 
             public function recordResult($name,$score){
-                $this->arr[array_search($name,$this->arr)] = $score; 
+                $this->array[ 
+                    array_search($name,(array_values($this->array)))
+                ]['score'] = $score;
             }
 
             public function playerRank($rank){
-                echo $this->arr[$rank];
+                // var_dump($this->array);
+                var_dump($this->array[$rank]);
+            }
+            public function sortByScore(){
             }
         }
 
@@ -29,7 +41,16 @@
         $table->recordResult('Maks', 3);
         $table->recordResult('Monika', 5);
 
-        echo $table->playerRank(0);
+
+
+
+        $table->sortByScore();
+
+        echo $table->playerRank(1);
+        // echo "<br>\n";
+        // echo $table->playerRank(2);
+        // echo "<br>\n";
+        // echo $table->playerRank(3);
     ?>
 </body>
 </html>
