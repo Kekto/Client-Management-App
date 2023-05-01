@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Listeners\SendNewCarNotification;
+use App\Events\RegisteredCars;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,8 +19,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-            SendNewCarNotification::class,
         ],
+        RegisteredCars::class => [
+            SendNewCarNotification::class,
+        ]
     ];
 
     /**

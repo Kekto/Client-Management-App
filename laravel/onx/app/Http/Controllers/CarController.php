@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
-use Illuminate\Auth\Events\Registered;
+use App\Events\RegisteredCars;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -22,7 +22,7 @@ class CarController extends Controller
         $car->client_id = $request->clientId;
         $car->save();
 
-        event(new Registered($car));
+        event(new RegisteredCars($car->client_id));
 
         return response(['Message' => 'Car created successfuly'],201);
     }
