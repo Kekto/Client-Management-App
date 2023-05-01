@@ -14,6 +14,8 @@ class OrderController extends Controller
         $order->price = $request->price;
         $order->client_id = $request->clientId;
         $order->save();
+
+        return response(['Message' => 'Order created successfuly'],201);
     }
     public function update(int $id,Request $request){
         $order = Order::find($id);
@@ -22,9 +24,11 @@ class OrderController extends Controller
         $order->price = $request->price;
         $order->client_id = $request->clientId;
         $order->save();
+
+        return response(['Message' => 'Order updated successfuly'],200);
     }
     public function read(int $id){
-        return Order::find($id);
+        return response(['Message' => 'Order '.$id,'Order' => Client::find($id)],200);
     }
     public function readAll(){
         return Order::all();

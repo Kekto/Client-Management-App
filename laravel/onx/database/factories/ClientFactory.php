@@ -1,0 +1,28 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Client>
+ */
+class ClientFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'first_name' => fake()->name(),
+            'last_name' => fake()->name(),
+            'birth_date' => fake()->date(),
+            'phone_number' => '123321123',
+            'email' => fake()->email(),
+            'employee_id' => 1,
+        ];
+    }
+}

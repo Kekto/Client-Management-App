@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Client;
 class ClientController extends Controller
@@ -25,6 +25,8 @@ class ClientController extends Controller
         $client->email = $request->email;
         $client->employee_id = $request->employee;
         $client->save();
+
+        return response(['Message' => 'Client created successfuly'],201);
     }
     public function update(int $id,Request $request){
         $client = Client::find($id);
@@ -35,15 +37,18 @@ class ClientController extends Controller
         $client->email = $request->email;
         $client->employee_id = $request->employee;
         $client->save();
+
+        return response(['Message' => 'Client updated successfuly'],200);
     }
     public function read(int $id){
-        return Client::find($id);
+        return response(['Message' => 'Client '.$id,'client' => Client::find($id)],200);
     }
     public function readAll(){
-        return Client::all();
+        return response(['Message' => 'All Clients','client' => Client::all()],200);
     }
     public function delete(int $id){
         $client = Client::find($id);
         $client->delete();
+        return response(['Message' => 'Client Deleted Succesfuly'],200);
     }
 }
