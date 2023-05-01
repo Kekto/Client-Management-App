@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,22 +34,22 @@ Route::put('/clients/{id}', [ClientController::class, 'update']);
 Route::delete('/clients/{id}', [ClientController::class, 'delete']);
 
 //ORDERS
-Route::get('/orders', [ClientController::class, 'readAll']);
-Route::get('/orders/{id}', [ClientController::class, 'read']);
-Route::post('/orders', [ClientController::class, 'create']);
-Route::put('/orders/{id}', [ClientController::class, 'update']);
-Route::delete('/orders/{id}', [ClientController::class, 'delete']);
+Route::get('/orders', [OrderController::class, 'readAll']);
+Route::get('/orders/{id}', [OrderController::class, 'read']);
+Route::post('/orders', [OrderController::class, 'create']);
+Route::put('/orders/{id}', [OrderController::class, 'update']);
+Route::delete('/orders/{id}', [OrderController::class, 'delete']);
 
 //EMPLOYEES
-Route::get('/employees', [ClientController::class, 'readAll']);
-Route::get('/employees/{id}', [ClientController::class, 'read']);
-Route::post('/employees', [ClientController::class, 'create']);
-Route::put('/employees/{id}', [ClientController::class, 'update']);
-Route::delete('/employees/{id}', [ClientController::class, 'delete']);
+Route::get('/employees', [EmployeeController::class, 'readAll']);
+Route::get('/employees/{id}', [EmployeeController::class, 'read']);
+Route::post('/employees', [EmployeeController::class, 'create']);
+Route::put('/employees/{id}', [EmployeeController::class, 'update']);
+Route::delete('/employees/{id}', [EmployeeController::class, 'delete']);
 
 //CARS
-Route::get('/cars', [ClientController::class, 'readAll']);
-Route::get('/cars/{id}', [ClientController::class, 'read']);
-Route::post('/cars', [ClientController::class, 'create']);
-Route::put('/cars/{id}', [ClientController::class, 'update']);
-Route::delete('/cars/{id}', [ClientController::class, 'delete']);
+Route::get('/cars', [CarController::class, 'readAll']);
+Route::get('/cars/{id}', [CarController::class, 'read']);
+Route::post('/cars', [CarController::class, 'create']);
+Route::put('/cars/{id}', [CarController::class, 'update']);
+Route::delete('/cars/{id}', [CarController::class, 'delete']);

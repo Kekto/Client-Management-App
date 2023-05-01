@@ -31,7 +31,6 @@ class ClientControllerTest extends TestCase
 
     public function testRead()
     {
-
         $response = $this->get("api/clients/".$this->client->id);
 
         $response->assertStatus(200);

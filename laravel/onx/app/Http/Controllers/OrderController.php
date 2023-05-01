@@ -28,13 +28,16 @@ class OrderController extends Controller
         return response(['Message' => 'Order updated successfuly'],200);
     }
     public function read(int $id){
-        return response(['Message' => 'Order '.$id,'Order' => Client::find($id)],200);
+        return response(['Message' => 'Order '.$id,'Order' => Order::find($id)],200);
     }
     public function readAll(){
-        return Order::all();
+        return response(['Message' => 'All Orders','order' => Order::all()],200);
+
     }
     public function delete(int $id){
         $order = Order::find($id);
         $order->delete();
+
+        return response(['Message' => 'Order Deleted Succesfuly'],200);
     }
 }
