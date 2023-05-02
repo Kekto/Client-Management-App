@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Events\RegisteredCars;
+use App\Models\Client;
+use App\Models\User;
+use App\Notifications\NewCarNotification;
+use App\Notifications\NewCarNotifications;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -22,7 +26,8 @@ class CarController extends Controller
         $car->client_id = $request->clientId;
         $car->save();
 
-        event(new RegisteredCars($car->client_id));
+        $client = Client::where('id',$car->client_id)->first();
+        $client->notify(new NewCarNotification($client));
 
         return response(['Message' => 'Car created successfuly'],201);
     }
