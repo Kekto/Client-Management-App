@@ -18,10 +18,10 @@
 
         <!-- CLIENT TABLE -->
         <el-table :data="paginated" style="width: 100%" class="table">
-          <el-table-column fixed prop="firstName" label="First Name" width="180px" sortable/>
-          <el-table-column fixed prop="lastName" label="Last Name" width="180px" sortable/>
-          <el-table-column prop="car" label="Car" width="fit-content" sortable/>
-          <el-table-column prop="employee.firstName" label="Employee" width="200px" sortable/>
+          <el-table-column fixed prop="first_name" label="First Name" width="180px" sortable/>
+          <el-table-column fixed prop="last_name" label="Last Name" width="fit-content" sortable/>
+          <!-- <el-table-column prop="car" label="Car" width="fit-content" sortable/> -->
+          <el-table-column prop="employee_id" label="Employee" width="200px" sortable/>
           <el-table-column fixed="right" label="Operations" width="200px">
             <template #default="props">
               <el-button link type="primary" size="small" @click="clickDetails(props.row.id)">
@@ -81,6 +81,7 @@
 <script>
 import { useClientStore } from '@/store/client';
 import { useUserStore } from '@/store/user';
+import { useCarStore } from '@/store/car';
 import AddClientComp from '@/components/AddClientComp.vue';
 import DetailsClientComp from '@/components/DetailsClientComp.vue';
 import UpdateClientComp from '@/components/UpdateClientComp.vue';
@@ -92,8 +93,11 @@ export default {
   setup(){
     const clientStore = useClientStore();
     const userStore = useUserStore();
+    const carStore = useCarStore();
 
-    return {clientStore, userStore}
+    clientStore.fetchData();
+
+    return {clientStore, userStore, carStore}
   },
   computed:{
     getClients(){
@@ -104,10 +108,8 @@ export default {
         client => 
           !this.search || 
            this.search.split(' ').every(w => 
-            client.firstName.toLowerCase().includes(w.toLowerCase()) ||
-            client.lastName.toLowerCase().includes(w.toLowerCase()) ||
-            client.car.toLowerCase().includes(w.toLowerCase()) ||
-            client.employee.firstName.toLowerCase().includes(w.toLowerCase())
+            client.first_name.toLowerCase().includes(w.toLowerCase()) 
+            || client.last_name.toLowerCase().includes(w.toLowerCase()) 
             )
         )
     },

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { defineStore } from "pinia";
 
 export const useClientStore = defineStore("client", {
@@ -71,6 +72,17 @@ export const useClientStore = defineStore("client", {
 		};
 	},
 	actions: {
+		async fetchData() {
+			await axios
+				.get("http://localhost:8000/api/clients")
+				.then((res) => {
+					console.log(res);
+					this.data = res.data.client;
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
 		getClientByID(id) {
 			return this.data.find((x) => x.id == id);
 		},

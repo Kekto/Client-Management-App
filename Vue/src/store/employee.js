@@ -8,16 +8,19 @@ export const useEmployeeStore = defineStore("employee", {
 					id: 1,
 					firstName: "Robert",
 					lastName: "Krazuer",
+					clientId: 1,
 				},
 				{
 					id: 2,
 					firstName: "Monica",
 					lastName: "Klin",
+					clientId: 1,
 				},
 				{
 					id: 3,
 					firstName: "Katherine",
 					lastName: "Wang",
+					clientId: 1,
 				},
 			],
 		};
