@@ -81,7 +81,6 @@ export default {
                 phoneNumber: '',
                 email: '',
                 employee: '',
-                car: '',
             },
             rules:{
                 firstName: [
@@ -112,8 +111,6 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    let id = this.form.employee;
-                    this.form.employee = this.employeeStore.getEmployeeByID(id)
                     this.clientStore.addClient(this.form);
                 } else {
                     return false;

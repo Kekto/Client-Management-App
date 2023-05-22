@@ -127,7 +127,7 @@ export default {
     return {
       search: '',
       current: 1,
-      pageSize: 2,
+      pageSize: 10,
       addDialogToggle: false,
       detailsDialogToggle: false,
       editDialogToggle: false,
@@ -136,8 +136,9 @@ export default {
   },
   methods:{
     clickDetails(id){
-      this.detailsDialogToggle = !this.detailsDialogToggle;
-      this.clientStore.selectedClient = this.clientStore.getClientByID(id);
+      // this.detailsDialogToggle = !this.detailsDialogToggle;
+      console.log(id)
+      this.clientStore.getClientByID(id);
     },
     clickEdit(id){
       this.editDialogToggle = !this.editDialogToggle;
