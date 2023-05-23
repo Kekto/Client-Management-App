@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore("user", {
 	state: () => {
 		return {
-			loggedIn: false,
+			loggedIn: true,
 			data: [
 				{
 					login: "admin",

@@ -1,31 +1,24 @@
 import { defineStore } from "pinia";
+import axios from "axios";
 
 export const useEmployeeStore = defineStore("employee", {
 	state: () => {
 		return {
-			data: [
-				{
-					id: 1,
-					firstName: "Robert",
-					lastName: "Krazuer",
-					clientId: 1,
-				},
-				{
-					id: 2,
-					firstName: "Monica",
-					lastName: "Klin",
-					clientId: 1,
-				},
-				{
-					id: 3,
-					firstName: "Katherine",
-					lastName: "Wang",
-					clientId: 1,
-				},
-			],
+			data: [],
 		};
 	},
 	actions: {
+		async fetchData() {
+			await axios
+				.get(`http://localhost:8000/api/employees`)
+				.then((res) => {
+					console.log(res);
+					this.data = res.data.employee;
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		},
 		getEmployeeByID(id) {
 			return this.data.find((x) => x.id == id);
 		},

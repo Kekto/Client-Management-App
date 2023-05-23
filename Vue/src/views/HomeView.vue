@@ -21,7 +21,7 @@
           <el-table-column fixed prop="first_name" label="First Name" width="180px" sortable/>
           <el-table-column fixed prop="last_name" label="Last Name" width="fit-content" sortable/>
           <!-- <el-table-column prop="car" label="Car" width="fit-content" sortable/> -->
-          <el-table-column prop="employee_id" label="Employee" width="200px" sortable/>
+          <el-table-column prop="employees_last_name" label="Employee" width="200px" sortable/>
           <el-table-column fixed="right" label="Operations" width="200px">
             <template #default="props">
               <el-button link type="primary" size="small" @click="clickDetails(props.row.id)">
@@ -82,6 +82,7 @@
 import { useClientStore } from '@/store/client';
 import { useUserStore } from '@/store/user';
 import { useCarStore } from '@/store/car';
+import { useEmployeeStore } from '@/store/employee';
 import AddClientComp from '@/components/AddClientComp.vue';
 import DetailsClientComp from '@/components/DetailsClientComp.vue';
 import UpdateClientComp from '@/components/UpdateClientComp.vue';
@@ -94,8 +95,11 @@ export default {
     const clientStore = useClientStore();
     const userStore = useUserStore();
     const carStore = useCarStore();
+    const employeeStore = useEmployeeStore();
 
     clientStore.fetchData();
+    employeeStore.fetchData();
+
 
     return {clientStore, userStore, carStore}
   },
@@ -136,8 +140,8 @@ export default {
   },
   methods:{
     clickDetails(id){
-      // this.detailsDialogToggle = !this.detailsDialogToggle;
-      console.log(id)
+      this.detailsDialogToggle = !this.detailsDialogToggle;
+      // console.log(id)
       this.clientStore.getClientByID(id);
     },
     clickEdit(id){

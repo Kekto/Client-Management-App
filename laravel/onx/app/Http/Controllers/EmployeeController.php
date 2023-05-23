@@ -24,11 +24,11 @@ class EmployeeController extends Controller
         return response(['Message' => 'Employee updated successfuly'],200);
     }
     public function read(int $id){
-        return response(['Message' => 'Employee '.$id,'client' => Employee::find($id)],200);
+        return response(['Message' => 'Employee '.$id,'employee' => Employee::find($id)],200);
 
     }
     public function readAll(){
-        return response(['Message' => 'All Employees','client' => Employee::all()],200);
+        return response(['Message' => 'All Employees','employee' => Employee::all()],200);
     }
     public function delete(int $id){
         $employee = Employee::find($id);

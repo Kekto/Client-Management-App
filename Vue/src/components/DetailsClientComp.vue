@@ -2,23 +2,23 @@
     <el-container class="info-container">
         <div class="clientInfo">
             <div class="clientNames">
-            {{ this.getSelectedClient.firstName }}
-            {{ this.getSelectedClient.lastName }}
+            {{ this.getSelectedClient.client?.first_name }}
+            {{ this.getSelectedClient.client?.last_name }}
             </div>
             <div class="clientDetails">
                 <div>
-                    Date of birth: {{ this.getSelectedClient.birthDate }}
+                    Date of birth: {{ this.getSelectedClient.client?.birth_date }}
                 </div>
                 <br/>
-                <div> Phone Number: {{ this.getSelectedClient.phoneNumber }}</div>
-                <div>E-mail: {{ this.getSelectedClient.email }}</div>
+                <div> Phone Number: {{ this.getSelectedClient.client?.phone_number }}</div>
+                <div>E-mail: {{ this.getSelectedClient.client?.email }}</div>
             </div>
         </div>
         <div class="employeeInfo">
             <div>Assigned Employee: </div> 
             <div class="employeeNames">
-                {{ this.getSelectedClient.employee.firstName }}
-                {{ this.getSelectedClient.employee.lastName }} 
+                {{ this.getSelectedClient.employee?.first_name }}
+                {{ this.getSelectedClient.employee?.last_name }} 
             </div>
             <div>
                 <div>Car:</div>
@@ -27,7 +27,7 @@
         </div>
     </el-container>
     <div class="employeeInfo employeeNames">
-        {{ this.getCosts }} PLN
+        <!-- {{ this.getCosts }} PLN -->
     </div>
     <el-container class="purchase-container">
         <el-table :data="this.getSelectedClient.expenses" style="width: 100%">

@@ -29,6 +29,7 @@ Route::get('/isFree/{id}', [CarController::class, 'ex_2']);
 // CLIENTS
 Route::get('/clients', [ClientController::class, 'readAll']);
 Route::get('/clients/{id}', [ClientController::class, 'read']);
+Route::get('/clients/details/{id}', [ClientController::class, 'readDetails']);
 Route::post('/clients', [ClientController::class, 'create']);
 Route::put('/clients/{id}', [ClientController::class, 'update']);
 Route::delete('/clients/{id}', [ClientController::class, 'delete']);

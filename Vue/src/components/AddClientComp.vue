@@ -48,7 +48,7 @@
             <el-option
             v-for="item in this.getEmployees"
             :key="item.id"
-            :label="item.firstName + ' ' + item.lastName"
+            :label="item.first_name + ' ' + item.last_name"
             :value="item.id"
             />
         </el-select>

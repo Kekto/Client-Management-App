@@ -45,7 +45,7 @@
                         <el-option
                         v-for="item in this.getEmployees"
                         :key="item.id"
-                        :label="item.firstName + ' ' + item.lastName"
+                        :label="item.first_name + ' ' + item.last_name"
                         :value="item.id"
                         />
                     </el-select>
@@ -112,7 +112,7 @@
                         <el-option
                         v-for="item in this.getEmployees"
                         :key="item.id"
-                        :label="item.firstName + ' ' + item.lastName"
+                        :label="item.first_name + ' ' + item.last_name"
                         :value="item.id"
                         />
                     </el-select>
@@ -128,9 +128,11 @@ import { useClientStore } from '@/store/client';
 import { useEmployeeStore } from '@/store/employee'
 export default {
 name: 'UpdateClientComp',
+
 setup(){
     const clientStore = useClientStore();
     const employeeStore = useEmployeeStore();
+
     return {clientStore, employeeStore}
 },
 mounted(){
@@ -158,20 +160,6 @@ data() {
                 phoneNumber: '',
                 email: '',
                 employee: "",
-            },
-            employees:{
-                employee1:{
-                    firstName: 'First Name',
-                    lastName: 'Last Name1',
-                },
-                employee2:{
-                    firstName: 'First Name',
-                    lastName: 'Last Name2',
-                },
-                employee3:{
-                    firstName: 'First Name',
-                    lastName: 'Last Name3',
-                },
             },
             rules:{
                 firstName: [
@@ -229,12 +217,12 @@ data() {
             }
         },
         fillForm(){
-            this.formTemplate.firstName = this.clientStore.selectedClient.firstName;
-            this.formTemplate.lastName = this.clientStore.selectedClient.lastName;
-            this.formTemplate.birthDate = this.clientStore.selectedClient.birthDate;
-            this.formTemplate.phoneNumber = this.clientStore.selectedClient.phoneNumber;
-            this.formTemplate.email = this.clientStore.selectedClient.email;
-            this.formTemplate.employee = this.clientStore.selectedClient.employee.id;
+            this.formTemplate.firstName = this.clientStore.selectedClient.client?.first_name;
+            this.formTemplate.lastName = this.clientStore.selectedClient.client?.last_name;
+            this.formTemplate.birthDate = this.clientStore.selectedClient.client?.birth_date;
+            this.formTemplate.phoneNumber = this.clientStore.selectedClient.client?.phone_number;
+            this.formTemplate.email = this.clientStore.selectedClient.client?.email;
+            this.formTemplate.employee = this.clientStore.selectedClient.employee?.id;
         }
     },  
 }

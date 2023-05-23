@@ -22,7 +22,7 @@ export const useClientStore = defineStore("client", {
 		},
 		async getClientByID(id) {
 			await axios
-				.get(`http://localhost:8000/api/clients/${id}`)
+				.get(`http://localhost:8000/api/clients/details/${id}`)
 				.then((res) => {
 					console.log(res);
 					this.selectedClient = res.data.client;
