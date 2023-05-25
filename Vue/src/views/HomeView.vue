@@ -141,17 +141,15 @@ export default {
   methods:{
     clickDetails(id){
       this.detailsDialogToggle = !this.detailsDialogToggle;
-      // console.log(id)
       this.clientStore.getClientByID(id);
     },
     clickEdit(id){
       this.editDialogToggle = !this.editDialogToggle;
-      this.clientStore.selectedClient = this.clientStore.getClientByID(id);
+      this.clientStore.getClientByID(id);
     },
     clickDelete(id){
       this.deleteDialogToggle = !this.deleteDialogToggle;
-      console.log(id)
-      this.clientStore.selectedClient = this.clientStore.getClientByID(id);
+      this.clientStore.getClientByID(id);
       this.clientStore.deleteClient();
     },
   }

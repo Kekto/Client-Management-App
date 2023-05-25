@@ -1,4 +1,4 @@
-<template>
+<template >
     <el-container>
         <!-- TEMPLATE FORM -->
         <el-main style="max-width: 600px;">
@@ -141,7 +141,10 @@ mounted(){
 computed:{
         getEmployees(){
             return this.employeeStore.getEmployees;
-        }
+        },
+        getSelectedClient(){
+            return this.clientStore.getSelectedClient;
+        },
     },
 data() {
         return {
@@ -190,9 +193,7 @@ data() {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    let id = this.form.employee;
-                    this.form.employee = this.employeeStore.getEmployeeByID(id)
-                    this.clientStore.updateClient(this.form);
+                    this.clientStore.updateClient(this.clientStore.selectedClient.client.id,this.form);
                 } else {
                     return false;
                 }
@@ -217,15 +218,18 @@ data() {
             }
         },
         fillForm(){
-            this.formTemplate.firstName = this.clientStore.selectedClient.client?.first_name;
-            this.formTemplate.lastName = this.clientStore.selectedClient.client?.last_name;
-            this.formTemplate.birthDate = this.clientStore.selectedClient.client?.birth_date;
-            this.formTemplate.phoneNumber = this.clientStore.selectedClient.client?.phone_number;
-            this.formTemplate.email = this.clientStore.selectedClient.client?.email;
-            this.formTemplate.employee = this.clientStore.selectedClient.employee?.id;
-        }
-    },  
+            setTimeout(() => {
+                this.formTemplate.firstName = this.getSelectedClient.client?.first_name;
+                this.formTemplate.lastName = this.getSelectedClient.client?.last_name;
+                this.formTemplate.birthDate = this.getSelectedClient.client?.birth_date;
+                this.formTemplate.phoneNumber = this.getSelectedClient.client?.phone_number;
+                this.formTemplate.email = this.getSelectedClient.client?.email;
+                this.formTemplate.employee = this.getSelectedClient.employee?.id;
+            }, 500);
+        },  
+    }
 }
+
 </script>
 
 <style scoped>

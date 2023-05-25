@@ -4,7 +4,7 @@ import { defineStore } from "pinia";
 export const useClientStore = defineStore("client", {
 	state: () => {
 		return {
-			selectedClient: Object,
+			selectedClient: [],
 			data: [],
 		};
 	},
@@ -41,19 +41,15 @@ export const useClientStore = defineStore("client", {
 					console.log(err);
 				});
 		},
-		updateClient(form) {
-			this.data[this.data.indexOf(this.selectedClient)].firstName =
-				form.firstName;
-			this.data[this.data.indexOf(this.selectedClient)].lastName =
-				form.lastName;
-			this.data[this.data.indexOf(this.selectedClient)].birthDate =
-				form.birthDate;
-			this.data[this.data.indexOf(this.selectedClient)].email = form.email;
-			this.data[this.data.indexOf(this.selectedClient)].phoneNumber =
-				form.phoneNumber;
-			this.data[this.data.indexOf(this.selectedClient)].employee =
-				form.employee;
-			console.log(this.data[this.data.indexOf(this.selectedClient)]);
+		async updateClient(id, form) {
+			await axios
+				.put(`http://localhost:8000/api/clients/${id}`, form)
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		},
 		deleteClient() {
 			let temp = this.data.splice(this.data.indexOf(this.selectedClient));
