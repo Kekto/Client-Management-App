@@ -74,8 +74,14 @@
       <UpdateClientComp/>
     </el-dialog>
   </div>
-
   <!-- DELETE CLIENT DIALOG -->
+  <el-dialog
+      v-model="deleteDialogToggle"
+      width="fit-content"
+      destroy-on-close
+    >
+      <DeleteClientComp/>
+    </el-dialog>
 </template>
 
 <script>
@@ -86,10 +92,12 @@ import { useEmployeeStore } from '@/store/employee';
 import AddClientComp from '@/components/AddClientComp.vue';
 import DetailsClientComp from '@/components/DetailsClientComp.vue';
 import UpdateClientComp from '@/components/UpdateClientComp.vue';
+import DeleteClientComp from '@/components/DeleteClientComp.vue';
+
 export default {
   name: 'HomeView',
   components:{
-    AddClientComp, DetailsClientComp, UpdateClientComp
+    AddClientComp, DetailsClientComp, UpdateClientComp,DeleteClientComp
   },
   setup(){
     const clientStore = useClientStore();
@@ -150,7 +158,7 @@ export default {
     clickDelete(id){
       this.deleteDialogToggle = !this.deleteDialogToggle;
       this.clientStore.getClientByID(id);
-      this.clientStore.deleteClient();
+      // this.clientStore.deleteClient();
     },
   }
 }

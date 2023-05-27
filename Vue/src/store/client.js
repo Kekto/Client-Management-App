@@ -51,9 +51,15 @@ export const useClientStore = defineStore("client", {
 					console.log(err);
 				});
 		},
-		deleteClient() {
-			let temp = this.data.splice(this.data.indexOf(this.selectedClient));
-			this.data = this.data.concat(temp.slice(1));
+		async deleteClient(id) {
+			await axios
+				.delete(`http://localhost:8000/api/clients/${id}`)
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		},
 	},
 	getters: {
