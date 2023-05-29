@@ -9,13 +9,15 @@
           <div class="searchbar">
             <el-input v-model="this.search"/>
           </div>
-          <div class="button-add">
-            <el-button class="button" type="primary" @click="addDialogToggle = !addDialogToggle">
+        </div>
+        <div class="banner-right">
+          <el-button class="button" type="primary" @click="addDialogToggle = !addDialogToggle">
               Add
             </el-button>
-          </div>
+          <el-button class="button" @click="this.clientStore.fetchData">
+            <el-icon color="white" size="20px"><Refresh /></el-icon>
+          </el-button>
         </div>
-
         <!-- CLIENT TABLE -->
         <el-table :data="paginated" style="width: 100%" class="table">
           <el-table-column fixed prop="first_name" label="First Name" width="180px" sortable/>
@@ -158,7 +160,6 @@ export default {
     clickDelete(id){
       this.deleteDialogToggle = !this.deleteDialogToggle;
       this.clientStore.getClientByID(id);
-      // this.clientStore.deleteClient();
     },
   }
 }
@@ -179,26 +180,25 @@ export default {
 .search-header{
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
   justify-content: center;
 }
 .searchbar{
   width: 40vw;
 }
+.banner-right{
+  display: flex;
+  justify-content: right;
+}
 .table{
   display: flex;
-}
-.button-add{
-  display: flex;
-  justify-content: end;
-  margin: 4px;
-  margin-right: 28px;
+  margin-top: 24px;
 }
 .button{
     background-color: #9fd3c7;
     border-color: #9fd3c7;
     width: fit-content;
     padding: 10px;
+    min-width: 100px;
     --el-button-hover-bg-color: #bde6dc;
     --el-button-hover-color: #bde6dc;
     --el-button-hover-text-color: white;
