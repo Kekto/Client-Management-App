@@ -51,7 +51,8 @@ export default {
         linkLogged: [
             {label: 'Home', link: 'home'},
             {label: 'Clients', link: 'clients'},
-            ]
+            {label: 'Employees', link: 'employees'},
+        ]
         };
     },
     methods: {

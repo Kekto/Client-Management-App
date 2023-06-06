@@ -14,7 +14,7 @@
             <el-button class="button" type="primary" @click="addDialogToggle = !addDialogToggle">
                 Add
                 </el-button>
-            <el-button class="button" @click="this.clientStore.fetchData">
+            <el-button class="button" @click="this.employeeStore.fetchData">
                 <el-icon color="white" size="20px"><Refresh /></el-icon>
             </el-button>
             </div>
@@ -22,8 +22,6 @@
             <el-table :data="paginated" style="width: 100%" class="table">
             <el-table-column fixed prop="first_name" label="First Name" width="180px" sortable/>
             <el-table-column fixed prop="last_name" label="Last Name" width="fit-content" sortable/>
-            <!-- <el-table-column prop="car" label="Car" width="fit-content" sortable/> -->
-            <el-table-column prop="employees_last_name" label="Employee" width="200px" sortable/>
             <el-table-column fixed="right" label="Operations" width="200px">
                 <template #default="props">
                 <el-button link type="primary" size="small" @click="clickDetails(props.row.id)">
@@ -44,7 +42,7 @@
             small
             background
             layout="prev, pager, next"
-            :total="filteredClients.length"
+            :total="filteredEmployees.length"
             :page-size="pageSize"
             v-model:current-page="current"
             class="mt-4"
@@ -111,30 +109,30 @@ setup(){
     employeeStore.fetchData();
 
 
-    return {clientStore, userStore, carStore}
+    return {clientStore, userStore, carStore, employeeStore}
 },
 computed:{
-    getClients(){
-    return this.clientStore.getClients
+    getEmployees(){
+        return this.employeeStore.getEmployees;
     },
-    filteredClients(){
-    return this.clientStore.getClients.filter(
-        client => 
-        !this.search || 
-            this.search.split(' ').every(w => 
-            client.first_name.toLowerCase().includes(w.toLowerCase()) 
-            || client.last_name.toLowerCase().includes(w.toLowerCase()) 
+    filteredEmployees(){
+        return this.employeeStore.getEmployees.filter(
+            employee => 
+            !this.search || 
+                this.search.split(' ').every(w => 
+                employee.first_name.toLowerCase().includes(w.toLowerCase()) 
+                || employee.last_name.toLowerCase().includes(w.toLowerCase()) 
+                )
             )
-        )
     },
     indexStart() {
-    return (this.current - 1) * this.pageSize;
+        return (this.current - 1) * this.pageSize;
     },
     indexEnd() {
-    return this.indexStart + this.pageSize;
+        return this.indexStart + this.pageSize;
     },
     paginated(){
-    return this.filteredClients.slice(this.indexStart, this.indexEnd);
+        return this.filteredEmployees.slice(this.indexStart, this.indexEnd);
     }
 },
 data() {

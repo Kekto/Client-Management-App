@@ -118,12 +118,12 @@ computed:{
     return this.clientStore.getClients
     },
     filteredClients(){
-    return this.clientStore.getClients.filter(
-        client => 
-        !this.search || 
-            this.search.split(' ').every(w => 
-            client.first_name.toLowerCase().includes(w.toLowerCase()) 
-            || client.last_name.toLowerCase().includes(w.toLowerCase()) 
+        return this.clientStore.getClients.filter(
+            client => 
+            !this.search || 
+                this.search.split(' ').every(w => 
+                client.first_name.toLowerCase().includes(w.toLowerCase()) 
+                || client.last_name.toLowerCase().includes(w.toLowerCase()) 
             )
         )
     },
