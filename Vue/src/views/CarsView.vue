@@ -20,8 +20,8 @@
             </div>
             <!-- CLIENT TABLE -->
             <el-table :data="paginated" style="width: 100%" class="table">
-            <el-table-column fixed prop="first_name" label="First Name" width="180px" sortable/>
-            <el-table-column fixed prop="last_name" label="Last Name" width="fit-content" sortable/>
+            <el-table-column fixed prop="model_name" label="Model Name" width="180px" sortable/>
+            <el-table-column fixed prop="client_id" label="Client Id" width="fit-content" sortable/>
             <el-table-column fixed="right" label="Operations" width="200px">
                 <template #default="props">
                 <el-button link type="primary" size="small" @click="clickDetails(props.row.id)">
@@ -42,7 +42,7 @@
             small
             background
             layout="prev, pager, next"
-            :total="filteredEmployees.length"
+            :total="filteredCars.length"
             :page-size="pageSize"
             v-model:current-page="current"
             class="mt-4"
@@ -105,21 +105,21 @@ setup(){
     const carStore = useCarStore();
     const employeeStore = useEmployeeStore();
 
-    employeeStore.fetchData();
+    carStore.fetchData();
+
 
     return {clientStore, userStore, carStore, employeeStore}
 },
 computed:{
-    getEmployees(){
-        return this.employeeStore.getEmployees;
+    getCars(){
+        return this.carStore.getCars;
     },
-    filteredEmployees(){
-        return this.employeeStore.getEmployees.filter(
-            employee => 
+    filteredCars(){
+        return this.carStore.getCars.filter(
+            car => 
             !this.search || 
                 this.search.split(' ').every(w => 
-                employee.first_name.toLowerCase().includes(w.toLowerCase()) 
-                || employee.last_name.toLowerCase().includes(w.toLowerCase()) 
+                car.model_name.toLowerCase().includes(w.toLowerCase()) 
                 )
             )
     },
@@ -130,7 +130,7 @@ computed:{
         return this.indexStart + this.pageSize;
     },
     paginated(){
-        return this.filteredEmployees.slice(this.indexStart, this.indexEnd);
+        return this.filteredCars.slice(this.indexStart, this.indexEnd);
     }
 },
 data() {
